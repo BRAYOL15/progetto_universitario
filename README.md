@@ -17,41 +17,26 @@ Questo progetto è un'applicazione desktop sviluppata in *Java* con interfaccia 
 
 Il progetto è stato strutturato per dimostrare la padronanza di tutti i concetti chiave affrontati durante il semestre:
 
-### 1. Architettura OOP & Principi SOLID (Moduli E3.1 - E3.5)
+### 1. Architettura OOP & Principi SOLID 
 * *Incapsulamento:* Tutti i modelli di dati (es. VoloAereo) proteggono il proprio stato tramite campi privati e metodi getter/setter dedicati.
 * *Ereditarietà e Polimorfismo:* Creazione di una classe base astratta TrattaViaggio estesa dalla sottoclasse VoloAereo. Il calcolo del prezzo finale è polimorfico (getPrezzoFinale()), variando automaticamente se i posti sul volo scarseggiano.
 * *SOLID:* Applicato il Single Responsibility Principle separando nettamente i dati del modello (model), la logica di business (service) e la gestione della GUI (controller).
 
-### 2. Strutture Dati & Generics (Moduli E4.1 & E6.1)
+### 2. Strutture Dati & Generics 
 * *Generics:* Implementazione della classe Prenotazione<T extends TrattaViaggio>. L'uso dei Generics con bounded type garantisce la massima sicurezza dei tipi e la riutilizzabilità del codice (estendibile in futuro anche a tratte ferroviarie o hotel).
 * *Data Structures:* Utilizzo di collezioni avanzate del Java Collections Framework per l'organizzazione ottimale del catalogo.
 
-### 3. Gestione delle Eccezioni (Modulo E5.1)
+### 3. Gestione delle Eccezioni 
 * Definizione dell'eccezione controllata personalizzata PostiEsauritiException. 
 * Il sistema intercetta i casi limite (es. tentativo di prenotazione a posti terminati o errori di digitazione dell'utente) e risponde graficamente tramite finestre di Alert senza provocare il crash del software.
 
-### 4. Programmazione Funzionale (Moduli E7.1 & E7.2)
+### 4. Programmazione Funzionale 
 * La logica di ricerca e filtraggio dei voli all'interno della classe GestoreVoli sfrutta appieno le *Java Stream API* e le espressioni *Lambda*, evitando cicli iterativi complessi e migliorando la leggibilità del codice.
 
-### 5. Multithreading e Concorrenza (Modulo E8.1)
+### 5. Multithreading e Concorrenza 
 * *Thread in Background:* Un thread secondario (configurato come Daemon) simula il mercato aggiornando i prezzi dei voli ogni 8 secondi in totale autonomia.
 * *Thread-Safety:* Per evitare race conditions tra il thread dei prezzi e l'azione di prenotazione dell'utente, l'accesso alle risorse condivise è regolato tramite blocchi sincronizzati (synchronized) e collezioni thread-safe (CopyOnWriteArrayList).
 * *UI Thread:* Gli aggiornamenti grafici generati dal thread in background vengono iniettati in sicurezza nella GUI tramite Platform.runLater().
 
 ---
 
-## 🚀 Come Avviare l'Applicazione
-
-### Prerequisiti
-* Java JDK 17 o superiore
-* Maven
-
-### Compilazione ed Esecuzione
-Apri il terminale nella root del progetto ed esegui:
-
-```bash
-# Sincronizza le dipendenze e compila il progetto
-mvn clean compile
-
-# Avvia l'applicazione JavaFX
-mvn javafx:run
