@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.progetto_universitario.MainController">
+    <children>
+
+        <AnchorPane fx:id="pannelloTratta" prefHeight="650.0" prefWidth="980.0" style="-fx-background-color: #f4f6f9;" visible="true">
+            <children>
+                <VBox alignment="CENTER" layoutX="240.0" layoutY="150.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                    <padding>
+                        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                    </padding>
+                    <children>
+                        <Label text="Ricerca Volo" textFill="#1a3c6c">
+                            <font><Font name="System Bold" size="24.0" /></font>
+                        </Label>
+                        <TextField fx:id="txtPartenza" prefHeight="40.0" promptText="Inserisci stazione / aeroporto di partenza" />
+                        <TextField fx:id="txtDestinazione" prefHeight="40.0" promptText="Inserisci stazione / aeroporto di arrivo" />
+                        <Button mnemonicParsing="false" onAction="#vaiAParametriRicerca" prefHeight="45.0" prefWidth="420.0" style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;" text="CONTINUA" />
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane fx:id="pannelloParametri" prefHeight="650.0" prefWidth="980.0" style="-fx-background-color: #f4f6f9;" visible="false">
+            <children>
+                <VBox alignment="CENTER" layoutX="240.0" layoutY="80.0" prefWidth="500.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                    <padding>
+                        <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                    </padding>
+                    <children>
+                        <Label text="Dettagli Viaggio" textFill="#1a3c6c">
+                            <font><Font name="System Bold" size="22.0" /></font>
+                        </Label>
+                        <HBox spacing="10.0">
+                            <children>
+                                <DatePicker fx:id="dateAndata" prefHeight="38.0" prefWidth="250.0" promptText="Andata" />
+                                <ComboBox fx:id="comboOraAndata" prefHeight="38.0" prefWidth="160.0" promptText="Orario" />
+                            </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                            <children>
+                                <DatePicker fx:id="dateRitorno" prefHeight="38.0" prefWidth="250.0" promptText="Ritorno (Opzionale)" />
+                                <ComboBox fx:id="comboOraRitorno" prefHeight="38.0" prefWidth="160.0" promptText="Orario" />
+                            </children>
+                        </HBox>
+                        <ChoiceBox fx:id="choiceTipoPasseggero" prefHeight="38.0" prefWidth="420.0" />
+                        <HBox spacing="15.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#tornaATratta" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;" text="INDIETRO" />
+                                <Button mnemonicParsing="false" onAction="#vaiASoluzioniVoli" prefHeight="42.0" prefWidth="275.0" style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;" text="CERCA IL TUO VOLO" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane fx:id="pannelloSoluzioni" prefHeight="650.0" prefWidth="980.0" style="-fx-background-color: #f4f6f9;" visible="false">
+            <children>
+                <VBox layoutX="50.0" layoutY="30.0" spacing="15.0">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#tornaAParametri" style="-fx-background-color: #1a3c6c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="← Modifica Ricerca" />
+                                <Label fx:id="lblRiepilogoTratta" text="Tratta Selezionata" textFill="#1a3c6c">
+                                    <font><Font name="System Bold" size="20.0" /></font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="500.0" prefWidth="880.0" style="-fx-background-color: transparent;">
+                            <content>
+                                <VBox fx:id="vboxRisultati" spacing="12.0" style="-fx-background-color: transparent;" />
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane fx:id="pannelloRiepilogo" prefHeight="650.0" prefWidth="980.0" style="-fx-background-color: #f4f6f9;" visible="false">
+            <children>
+                <VBox alignment="CENTER" layoutX="265.0" layoutY="100.0" prefWidth="450.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                    <padding>
+                        <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+                    </padding>
+                    <children>
+                        <Label text="Riepilogo Selezione" textFill="#1a3c6c">
+                            <font><Font name="System Bold" size="22.0" /></font>
+                        </Label>
+                        <VBox alignment="CENTER_LEFT" spacing="8.0" style="-fx-background-color: #f8fafc; -fx-padding: 15; -fx-background-radius: 8;">
+                            <children>
+                                <Label fx:id="lblDettaglioVoloCodice" text="Volo" style="-fx-font-weight: bold;" />
+                                <Label fx:id="lblDettaglioVoloTratta" text="Tratta" />
+                                <Label fx:id="lblDettaglioVoloOrario" text="Orario" />
+                            </children>
+                        </VBox>
+                        <HBox alignment="CENTER" spacing="20.0">
+                            <children>
+                                <Label text="Seleziona quanti passeggeri:" />
+                                <Button mnemonicParsing="false" onAction="#diminuisciBiglietti" prefWidth="35.0" style="-fx-font-weight: bold;" text="-" />
+                                <Label fx:id="lblQuantitaBiglietti" text="1" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                                <Button mnemonicParsing="false" onAction="#aggiungiBiglietti" prefWidth="35.0" style="-fx-font-weight: bold;" text="+" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <children>
+                                <Label text="PREZZO TOTALE: ">
+                                    <font><Font name="System Bold" size="14.0" /></font>
+                                </Label>
+                                <Label fx:id="lblPrezzoTotaleRiepilogo" text="0.00 €" textFill="#dc2626">
+                                    <font><Font name="System Bold" size="18.0" /></font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox spacing="15.0" alignment="CENTER">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#tornaASoluzioni" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="INDIETRO" />
+                                <Button mnemonicParsing="false" onAction="#vaiADatiPasseggeri" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #1a3c6c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="PROSEGUI" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane fx:id="pannelloDatiPasseggeri" prefHeight="650.0" prefWidth="980.0" style="-fx-background-color: #f4f6f9;" visible="false">
+            <children>
+                <VBox alignment="CENTER" layoutX="215.0" layoutY="30.0" prefWidth="550.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 5);">
+                    <padding>
+                        <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                    </padding>
+                    <children>
+                        <VBox alignment="CENTER" spacing="5.0">
+                            <children>
+                                <Label text="Contatti Acquirente / Passeggeri" textFill="#1a3c6c">
+                                    <font><Font name="System Bold" size="22.0" /></font>
+                                </Label>
+                                <Label text="I biglietti sono nominativi. Inserisci i dati obbligatori richiesti." textFill="#666666">
+                                    <font><Font name="System Italic" size="13.0" /></font>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="340.0" prefWidth="470.0" style="-fx-background-color: transparent; -fx-border-color: #e2e8f0; -fx-border-radius: 8;">
+                            <content>
+                                <VBox fx:id="vboxFormPasseggeri" spacing="20.0" style="-fx-background-color: white;">
+                                    <padding>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                        <HBox spacing="20.0" alignment="CENTER">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#tornaARiepilogo" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;" text="INDIETRO" />
+                                <Button mnemonicParsing="false" onAction="#completaAcquistoFinale" prefHeight="45.0" prefWidth="310.0" style="-fx-background-color: #22c55e; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-font-size: 14px; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(34,197,94,0.3), 8, 0, 0, 4);" text="CONFERMA E PRENOTA" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+        <AnchorPane fx:id="pannelloSuccesso" prefHeight="650.0" prefWidth="980.0" style="-fx-background-color: #1a3c6c;" visible="false">
+            <children>
+                <VBox alignment="CENTER" layoutX="190.0" layoutY="60.0" prefWidth="600.0" spacing="25.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 8);">
+                    <padding>
+                        <Insets bottom="40.0" left="50.0" right="50.0" top="40.0" />
+                    </padding>
+                    <children>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e8f5e9; -fx-background-radius: 50;" maxWidth="80.0" maxHeight="80.0" minWidth="80.0" minHeight="80.0">
+                            <children>
+                                <Label text="✓" textFill="#22c55e">
+                                    <font><Font name="System Bold" size="42.0" /></font>
+                                </Label>
+                            </children>
+                        </VBox>
+                        <Label text="PRENOTAZIONE RIUSCITA!" textFill="#1a3c6c">
+                            <font><Font name="System Bold" size="26.0" /></font>
+                        </Label>
+                        <VBox spacing="12.0" style="-fx-background-color: #f8fafc; -fx-border-color: #cbd5e1; -fx-border-radius: 10; -fx-background-radius: 10;">
+                            <padding>
+                                <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                            </padding>
+                            <children>
+                                <Label fx:id="lblMessaggioSuccesso" alignment="CENTER" text="Dettagli ricevuta..." textAlignment="CENTER" wrapText="true" style="-fx-font-size: 14px; -fx-text-fill: #334155; -fx-line-spacing: 5;" />
+                            </children>
+                        </VBox>
+                        <Button mnemonicParsing="false" onAction="#resetInizialeHome" prefHeight="48.0" prefWidth="240.0" style="-fx-background-color: #1a3c6c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-font-size: 14px; -fx-cursor: hand;" text="TORNA ALLA HOME" />
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+    </children>
+</AnchorPane>
